@@ -1,0 +1,50 @@
+
+{{block name="contents"}}
+<div class="row">
+  <div class="col-md-8">
+    <h3>
+    ようこそ
+    </h3>
+    <span>
+    まだコンテンツは少ないですけど、随時追加していく予定です。<br/>
+    よかったら<a href="#" onClick="addBookmark();">ブックマーク</a>でもしていただいて、たまに遊びにきてくださいな(ーwー)/
+    </span>
+  </div>
+  <div class="col-md-4">
+    <!-- Twitter @bass_clef_ のタイムライン -->
+    <br/>
+    <a
+      class="twitter-timeline"
+      href="https://twitter.com/bass_clef_"
+      data-widget-id="609996449187692544"
+    >@bass_clef_さんのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+  </div>
+</div>
+{{/block}}
+
+{{block name="foot"}}
+<div class="container">
+  <div class="col-md-12">
+    <div class="pull-right">アクセス数<span class="badge">{{$negasei['access_count']}}</span></div>
+  </div>
+</div>
+
+<script>
+<!--
+function addBookmark() {
+  if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+    window.sidebar.addPanel(document.title,window.location.href,'');
+  } else if(window.external && ('AddFavorite' in window.external)) { // IE Favorite
+    window.external.AddFavorite(location.href,document.title); 
+  } else if(window.opera && window.print) { // Opera Hotlist
+    this.title=document.title;
+    return true;
+  } else { // webkit - safari/chrome
+    alert('機能が使えませんでした。\nブラウザ付属のブックマーク機能をご利用ください。' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? '【 Command 】' : '【 Ctrl 】') + ' + 【 D 】ボタンを押すとブックマークできます。');
+  }
+}
+//-->
+</script>
+{{/block}}
+

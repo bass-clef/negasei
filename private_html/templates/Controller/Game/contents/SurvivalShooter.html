@@ -1,0 +1,45 @@
+
+{{block name="contents"}}
+
+<div class="row">
+  <h4>Survival Shooter (Shot gun ver)</h4>
+  <div id="unityPlayer">
+    <div class="missing">
+      <a href="http://unity3d.com/webplayer/" title="Unity Web Player. Install now!">
+        <img alt="Unity Web Player. Install now!" src="http://webplayer.unity3d.com/installation/getunity.png" width="193" height="63" />
+      </a>
+      <span class="text-danger">UnityWebPlayerをインストールしないと実行できないようです</span>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <h5>操作方法</h5>
+    <div class="list-group">
+      <span class="list-group-item">
+        <span>左クリック/Ctrl</span><span class="pull-right">撃つ</span>
+      </span>
+      <span class="list-group-item">
+        <span>[A/W/S/D][left/up/down/right]</span><span class="pull-right">移動</span>
+      </span>
+    </div>
+    <span>ただ撃ってストレス発散させるだけのゲームです。いいスコアがでた場合は<a href="/index.php/blog/20150623">こちら</a>へコメントでも。</span><br/>
+    <span class="text-danger">※音が出ます</span><br/>
+    <span class="text-danger">※chromeを使用している方はURLに[about://plugins]と入力し、Unity Playerが有効になっている事を確認してください</span><br/>
+  </div>
+</div>
+
+{{/block}}
+
+
+{{block name="foot"}}
+  <script src="http://webplayer.unity3d.com/download_webplayer-3.x/3.0/uo/UnityObject2.js"></script>
+  <script>
+  $(function(){
+    var u = new UnityObject2();
+    u.initPlugin($("#unityPlayer")[0], "/contents/web_player.unity3d");
+  });
+  </script>
+{{/block}}
+
+

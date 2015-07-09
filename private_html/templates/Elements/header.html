@@ -1,0 +1,28 @@
+
+{{block name="page_header"}}
+
+<div class="navbar-fixed-top container-fluid">
+  <button type="button" class="btn btn-default navbar-toggle collapsed" data-toggle="collapse" data-target="#header_menu,#footer_menu" aria-expanded="false">
+    <span class="notcolor glyphicon glyphicon-option-vertical"></span>
+  </button>
+</div>
+<nav class="collapse navbar-collapse navbar-inverse navbar-fixed-top" id="header_menu">
+  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header_menu,#footer_menu" aria-expanded="false">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <ul class="nav navbar-nav">
+    <li><a class="navbar-brand" href="/index.php">ニゲ製TOP</a></li>
+  </ul>
+  <ul class="nav navbar-nav">
+    <li {{if 'game' === $pageName}}class="active"{{/if}}><a href="/index.php/game">コンテンツ</a></li>
+    <li {{if 'blog' === $pageName}}class="active"{{/if}}><a href="/index.php/blog">雑記</a></li>
+    <li {{if 'neet' === $pageName}}class="active"{{/if}}><a href="/index.php/neet">ニ</a></li>
+  </ul>
+
+  <ul class="nav navbar-nav navbar-right">
+  </ul>
+</nav>
+{{/block}}
+

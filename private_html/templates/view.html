@@ -1,0 +1,61 @@
+
+<!DOCTYPE html> 
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8" />
+<meta name="keywords" content="ゲーム,ニート,ブログ,BassClef,ニゲ製" />
+<meta name="description" content="のんびりｇｄｇｄとゲームとかツールとかを作成、紹介していくサイト。" />
+<meta http-equiv="content-script-type" content="text/javascript" />
+<meta http-equiv="content-style-type" content="text/css" />
+<meta name="viewport" content="width=device-width">
+
+<title>ニゲ製</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<link rel="stylesheet" href="{{$root_url}}/libs/css/layout.css" />
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+{{block name="head"}}{{/block}}
+</head>
+<body>
+  <div href="#top"></div>
+  {{block name="page_header"}}{{/block}}
+
+  <div id="rpg_window"
+    data-src="{{$root_url}}/libs/resource/maptips.png"
+    data-chara="{{$root_url}}/libs/resource/charaters.png"
+    data-find="div,ul,iframe,h1,h2,h3,h4,h5,h6,span,input,button,textarea"
+    data-not=".noback,.row,.container,.col-md-1,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-10,.col-md-11,.col-md-12"
+    data-debug=""
+  >
+    <span id="rpg_console" style="position: fixed"></span>
+    <span id="rpg_info" style="position: fixed"></span>
+    <canvas id="rpg_canvas_master"></canvas>
+    <canvas id="rpg_canvas_slave" visibility="hidden"></canvas>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {{block name="contents"}}{{/block}}
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        {{block name="foot"}}{{/block}}
+        {{block name="page_footer"}}{{/block}}
+        <div href="#bottom"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  {{include "Elements/backgroundRPG.html"}}
+</body>
+
+</html>

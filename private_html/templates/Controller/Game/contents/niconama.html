@@ -1,0 +1,120 @@
+
+{{block name="contents"}}
+
+<h3>ニコ生自動次枠移動機</h3>
+
+<div class="row">
+  <div class="col-md-12">
+    <label>コミュニティでの放送を新しいタブで自動で開きます(10秒毎に更新)</label>
+    <input type='text' class='form-control' placeholder='コミュニティのURL coからでも可' id='community_URL'/>
+    <label id='community_name'></label>
+    <div id='community_watch'></div>
+    <div id='community_info'></div>
+    <ul>
+      <li>初回はポップアップがブロックされるので許可してくださいな(泣)。なお、このプログラムの使用には自身の責任によって行ってください(一応書いとく)</li>
+      <li>「あれ、枠が終わっても次枠へ移動しないっ。」と感じたらもう一度ページを更新して頂くか、URLを一度空にする→どっかクリック→もう一度入力するなどしてみてくださいな</li>
+      <li>どうやらAndroidでは使えないようです。iOSのご報告をお待ちしております。</li>
+    </ul>
+  </div>
+</div>
+
+{{/block}}
+
+{{block name="foot"}}
+<script src="{{$root_url}}/libs/js/jquery.xdomainajax.js"></script>
+<script src="{{$root_url}}/libs/js/purl.js"></script>
+<script>
+$(function () {
+  var watchNumber = -1;
+  var intervalCount = 0;
+  var initIntervalCount = 6;
+  var intervalTime = 0;
+  var initIntervalTime = 10;
+  var communityURL = '';
+
+  function comunityInvalid() {
+    intervalCount = 0;
+    intervalTime = 0;
+    $('#community_name').text('URLがコミュニティでないです \"' + communityURL + '\"');
+    $('#community_watch').text('');
+    $('#community_info').text('');
+    return;
+  }
+
+  function loadingNicoNamaPage() {
+    communityURL = $('#community_URL').val();
+    if (undefined === communityURL) {
+      comunityInvalid();
+      return;
+    }
+    if ('' === communityURL) {
+      comunityInvalid();
+      return;
+    }
+
+    url = $.url(communityURL);
+    hostname  = url.attr('host');
+    directory = url.attr('directory');
+    directories = directory.split('/');
+    if ('com.nicovideo.jp' !== hostname || 'community' !== directories[1]) {
+      if (0 === communityURL.indexOf('co')) {
+        communityURL = 'http://com.nicovideo.jp/community/' + communityURL;
+      } else {
+        comunityInvalid();
+        return;
+      }
+    }
+
+    // インターバル
+    if (intervalCount) {
+      intervalCount--;
+      $('#community_info').text('新しい枠を認識したので待ち時間を一時的に1分にしてます(残り' + intervalTime + 'カウント)');
+      return;
+    } else if (intervalTime) {
+      intervalCount = initIntervalCount;
+      intervalTime--;
+      $('#community_info').text('新しい枠を認識したので待ち時間を一時的に1分にしてます(残り' + intervalTime + 'カウント)');
+    }
+      
+    // コミュニティのHTML取得
+    $.get(communityURL, function(data){
+      $('#community_info').text('');
+      $('#community_name').text('設定されているコミュニティ「' + $(data.responseText).find('#community_name').text() + '」');
+      nowLiveATag = $(data.responseText).find('#now_live').find('a');
+      watchURL = nowLiveATag.attr('href');
+      if (watchURL) {
+        desc = $(data.responseText).find('#now_live').find('.desc').text();
+        watchMessage = '<div class="panel panel-info">';
+        watchMessage += '<div class="panel-heading">' + nowLiveATag.text() + '</div>';
+        watchMessage += '<a id="url_open" target="_blank" href="' + watchURL + '">';
+        watchMessage += '<img alt="生放送を視聴する！" src="http://com.res.nimg.jp/img/community/now/btn_jump_live.png"></img>';
+        watchMessage += '</a></br>';
+        watchMessage += '<label class="center-block">' + desc + '</label>';
+        watchMessage += '</div>';
+
+        url = $.url(watchURL);
+        watchURLdirectory = url.attr('directory');
+        watchURLdirectories = watchURLdirectory.split('/');
+        newWatchNumber = watchURLdirectories[2];
+        if (watchNumber !== newWatchNumber) {
+          intervalCount = initIntervalCount;
+          intervalTime = initIntervalTime;
+          watchNumber = newWatchNumber;
+          window.open(watchURL, 'blank_');
+        }
+      } else {
+        watchMessage = '放送中ではありません';
+      }
+      $('#community_watch').html(watchMessage);
+    });
+  }
+
+  $('#community_URL').change(function() {
+    intervalCount = 0;
+    intervalTime = 0;
+    loadingNicoNamaPage();
+  });
+  setInterval(loadingNicoNamaPage, 10000);
+});
+</script>
+{{/block}}

@@ -1,0 +1,76 @@
+
+<script>
+
+/* jquery ready */
+$(function() {
+
+  /* 定数 */
+  const MAPF_FRONT  = 0;
+  const MAPF_BACK   = 1;
+  const MAPF_BACK_L   = 0;
+  const MAPF_BACK_LT  = 1;
+  const MAPF_BACK_T   = 2;
+  const MAPF_BACK_RT  = 3;
+  const MAPF_BACK_R   = 4;
+  const MAPF_BACK_RB  = 5;
+  const MAPF_BACK_B   = 6;
+  const MAPF_BACK_LB  = 7;
+  const MAPF_BACK_C   = 8;
+  function isBackMap(flag) {
+    return MAPF_BACK+MAPF_BACK_L <= flag && flag <= MAPF_BACK+MAPF_BACK_C;
+  }
+  function isBackTopMap(flag) {
+    return MAPF_BACK+MAPF_BACK_LT <= flag && flag <= MAPF_BACK+MAPF_BACK_RT;
+  }
+  function isBackBottomMap(flag) {
+    return MAPF_BACK+MAPF_BACK_RB <= flag && flag <= MAPF_BACK+MAPF_BACK_LB;
+  }
+
+  /* global変数 */
+  var lastAnimationFrameTime = 0, lastFpsUpdateTime = 0
+
+  {{include "Elements/BackgroundRPG/functions.js"}}
+  {{include "Elements/BackgroundRPG/Character.js"}}
+  {{include "Elements/BackgroundRPG/ElementRect.js"}}
+  {{include "Elements/BackgroundRPG/Map.js"}}
+  {{include "Elements/BackgroundRPG/subFunctions.js"}}
+  {{include "Elements/BackgroundRPG/main.js"}}
+
+  /* イベント */
+  /* サイズ変更 */
+  var timer = false;
+  $(window).resize(function() {
+    if (timer !== false) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(function() {
+      rpgWindow();
+    }, 200);
+  });
+
+  /* スクロール移動時 */
+  $(window).on('scroll', function() {
+    rpgWindow();
+  });
+
+  /* ON/OFF ボタン押下 */
+  $('#rpg_switch').click(function(){
+    if ('ON' == localStorage.rpgState) {
+      localStorage.rpgState = 'OFF';
+    } else {
+      localStorage.rpgState = 'ON';
+    }
+  });
+
+  // 表示設定読み込み
+  $('#rpg_switch').text('背景' + ('OFF' == localStorage.rpgState || '' == localStorage.rpgState ? "ON" : 'OFF'));
+  if ('OFF' !== localStorage.rpgState) {
+    rpgInitalize();
+    if ('ON' !== localStorage.rpgState) {
+      localStorage.rpgState = 'ON';
+    }
+  }
+});
+
+</script>
+
