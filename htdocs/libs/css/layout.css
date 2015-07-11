@@ -1,0 +1,79 @@
+
+
+@font-face {
+  font-family: 'RPG';
+  src: url('../resource/misaki_gothic.ttf') format('truetype');
+}
+
+
+*, h4 {
+  font: 100% "RPG";
+  color: rgba(255, 255, 255, 1);
+}
+h1 {
+  font: 200% "RPG";
+  color: rgba(255, 255, 255, 1);
+}
+h2 {
+  font: 150% "RPG";
+  color: rgba(255, 255, 255, 1);
+}
+h3 {
+  font: 120% "RPG";
+  color: rgba(255, 255, 255, 1);
+}
+h5 {
+  font: 88.8% "RPG";
+  color: rgba(255, 255, 255, 1);
+}
+h6 {
+  font: 60% "RPG";
+  color: rgba(255, 255, 255, 1);
+}
+
+.notcolor {
+  color: rgba(0, 0, 0, 1);
+}
+
+pre {
+  color: rgba(255, 255, 255, 1);
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+}
+
+body {
+  text-shadow:
+    -1px -1px #000,
+    1px -1px #000,
+    -1px 1px #000,
+    1px 1px #000;
+}
+@media screen and (min-width: 768px) {
+  body {
+    padding-top: 50px;
+  }
+}
+
+footer {
+  position: absolute;
+}
+
+a:link {
+  color: #44AAEE;
+}
+
+#rpg_window {
+  font: 16px "RPG";
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+}
+
+#container {
+  position: absolute;
+  top:0;
+  right:20px;
+  left:20px;
+}
